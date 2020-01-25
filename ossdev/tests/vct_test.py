@@ -24,12 +24,6 @@ class VectorTest(unittest.TestCase):
         b = Vector([2, -1])
         self.assertEqual(a.dot(b), 0)
 
-    def test_lenght(self):
-        # Uncomment after passing
-        # self.assertAlmostEqual(Vector([2, 4]).length(), 4.47213595499, 3)
-        # self.assertAlmostEqual(Vector([2, 4, 5]).length(), 6.708203932499369, 3)
-        return
-
     def test_setitem(self):
         a = Vector([0, 1, 2, 3])
         a.__setitem__(1, 5)
@@ -58,15 +52,17 @@ class VectorTest(unittest.TestCase):
     def test_mul(self):
         a = Vector([0, 1, 2, 3])
         b = a.__mul__(2)
+        c = a.__mul__(b)
 
-        self.assertEqual(b, [0, 2, 4, 6])
+        self.assertEqual(b.d, [0, 2, 4, 6])
+        self.assertEqual(c.d, [0, 2, 8, 18])
 
     def test_xor(self):
         a = Vector([0, 1, 2, 3])
         b = a.__xor__(2)
-        c = [0 ^ 2, 1 ^ 2, 2 ^ 2, 3 ^ 2]
+        c = Vector([0 ^ 2, 1 ^ 2, 2 ^ 2, 3 ^ 2])
 
-        self.assertEqual(b, c)
+        self.assertEqual(b.d, c.d)
 
     def test_length(self):
         a = Vector([0, 1, 2, 3])
@@ -74,6 +70,12 @@ class VectorTest(unittest.TestCase):
         c = math.sqrt(14)
 
         self.assertEqual(b, c)
+
+    def test_lenght(self):
+        # Uncomment after passing
+        self.assertAlmostEqual(Vector([2, 4]).length(), 4.47213595499, 3)
+        self.assertAlmostEqual(Vector([2, 4, 5]).length(), 6.708203932499369, 3)
+        return
 
 
 if __name__ == "__main__":
