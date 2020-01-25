@@ -1,6 +1,7 @@
 # Useful doc on Python magic methods:
 # https://rszalski.github.io/magicmethods/
 import itertools
+import math
 
 
 class Vector:
@@ -51,14 +52,29 @@ class Vector:
 
     def __cmp__(self, other):
         # TODO: implement, -1 if self < other, 0 if self == other, 1 if self > other
-        return -1
+        s = 0
+        o = 0
+        for i in self.d:
+            s += i**2
+        for j in other.d:
+            o += j**2
+        s = math.sqrt(s)
+        o = math.sqrt(o)
+
+        if s < o:
+            ret = -1
+        elif s == o:
+            ret = 0
+        else:
+            ret = 1
+        return ret
 
     def __neg__(self):
         return Vector([-x for x in self.d])
 
     def __reversed__(self):
         # TODO: implement vector element reversal (hint: list(reversed(self.d)))
-        return Vector()
+        return list(reversed(self.d))
 
     def __add__(self, other):
         if isinstance(other, int):
@@ -70,7 +86,7 @@ class Vector:
     def __sub__(self, other):
         # TODO: implement vector subtraction, comment change to make conflict
         # you may use __add__() and negation, like return (-self + other)
-        return None
+        return [s - o for s, o in zip(self, other)]
 
     def __mul__(self, other):
         if isinstance(other, int):
@@ -107,7 +123,7 @@ class Vector:
         if len(self) == 0:
             raise ValueError('Undefined for zero-length vector')  # make return 0 instead of an exception
         # TODO: implement vector length comp. (hint: return math.sqrt(sum(x*x for x in self.d)))
-        return None
+        return math.sqrt(sum(x * x for x in self.d))
 
     def dot(self, other):
         # TODO: implement dot-product, i.e., a.b = \sum_i a[i]*b[i],
@@ -185,4 +201,3 @@ class Matrix:
         for i, j in self.index_iter():
             m[i][j] = m[i][j] + other[i][j]
         return m
-
