@@ -72,7 +72,7 @@ class Vector:
             return Vector([self.d[i] + other[i] for i in range(len(self))])
 
     def __sub__(self, other):
-        # simple comment
+        # simple comment after reviewer's request
         # TODO: implement vector subtraction
         return [s - o for s, o in zip(self, other)]
 
